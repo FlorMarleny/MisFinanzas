@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Alert,
+  Platform,
   ScrollView,
   StyleSheet,
   Switch,
@@ -183,13 +184,20 @@ export default function AgregarScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f5f5" },
+
   card: {
     backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
-    borderWidth: 0.5,
+    borderWidth: Platform.OS === "ios" ? 0.5 : 0,
     borderColor: "#e0e0e0",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
   },
+
   toggleRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -199,7 +207,13 @@ const styles = StyleSheet.create({
   },
   toggleLabel: { fontSize: 15, color: "#aaa", fontWeight: "500" },
   toggleActive: { color: "#1a1a1a" },
-  label: { fontSize: 12, color: "#888", marginBottom: 6, fontWeight: "500" },
+  label: {
+    fontSize: 12,
+    color: "#888",
+    marginBottom: 6,
+    fontWeight: "500",
+    fontFamily: "Inter_500Medium",
+  },
   input: {
     borderWidth: 0.5,
     borderColor: "#ddd",
@@ -209,6 +223,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     color: "#1a1a1a",
     backgroundColor: "#fafafa",
+    fontFamily: "Inter_400Regular",
   },
   chip: {
     paddingHorizontal: 14,

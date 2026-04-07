@@ -1,6 +1,6 @@
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { cargarMetas, cargarTransacciones } from "../../storage/data";
 
 export default function DashboardScreen() {
@@ -190,11 +190,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 12,
     padding: 14,
-    borderWidth: 0.5,
+    borderWidth: Platform.OS === "ios" ? 0.5 : 0, // ✅ en Android borderWidth se ve raro
     borderColor: "#e0e0e0",
+    // ✅ Sombras cross-platform
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  metricLabel: { fontSize: 12, color: "#888", marginBottom: 4 },
-  metricValue: { fontSize: 20, fontWeight: "600" },
+  metricLabel: {
+    fontSize: 12,
+    color: "#888",
+    marginBottom: 4,
+    fontFamily: "Inter_400Regular", // ✅
+  },
+  metricValue: {
+    fontSize: 20,
+    fontWeight: "600",
+    fontFamily: "Inter_600SemiBold", // ✅
+  },
   card: {
     backgroundColor: "#fff",
     borderRadius: 12,
@@ -211,6 +226,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 0.5,
     marginBottom: 12,
+    fontFamily: "Inter_600SemiBold", // ✅
   },
   empty: {
     color: "#bbb",
@@ -218,8 +234,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 12,
   },
-  catLabel: { fontSize: 13, color: "#333" },
-  catVal: { fontSize: 13, color: "#888" },
+  catLabel: {
+    fontSize: 13,
+    color: "#333",
+    fontFamily: "Inter_400Regular", // ✅
+  },
+  catVal: {
+    fontSize: 13,
+    color: "#888",
+    fontFamily: "Inter_400Regular", // ✅
+  },
   progressBg: {
     height: 8,
     backgroundColor: "#f0f0f0",
@@ -235,6 +259,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: "#f0f0f0",
   },
-  txnDesc: { fontSize: 14, fontWeight: "500", color: "#1a1a1a" },
-  txnMeta: { fontSize: 12, color: "#888", marginTop: 2 },
+  txnDesc: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#1a1a1a",
+    fontFamily: "Inter_500Medium", // ✅
+  },
+  txnMeta: {
+    fontSize: 12,
+    color: "#888",
+    marginTop: 2,
+    fontFamily: "Inter_400Regular", // ✅
+  },
 });

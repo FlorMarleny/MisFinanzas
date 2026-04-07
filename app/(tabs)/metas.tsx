@@ -80,7 +80,7 @@ export default function MetasScreen() {
     setAbonoId(null);
     Alert.alert(
       "✅ Abono registrado",
-      `Se agregaron $${monto.toLocaleString("es-CO")} a tu meta`,
+      `Se agregaron S/.${monto.toLocaleString("es-CO")} a tu meta`,
     );
   };
 
@@ -114,7 +114,7 @@ export default function MetasScreen() {
           style={styles.input}
           value={nombre}
           onChangeText={setNombre}
-          placeholder="Ej: Vacaciones, Fondo de emergencia..."
+          // placeholder="Ej: Vacaciones, Fondo de emergencia..."
         />
 
         <Text style={styles.label}>Monto objetivo ($)</Text>
@@ -123,7 +123,7 @@ export default function MetasScreen() {
           value={objetivo}
           onChangeText={setObjetivo}
           keyboardType="numeric"
-          placeholder="5000000"
+          // placeholder="5000000"
         />
 
         <Text style={styles.label}>Fecha límite (opcional)</Text>
@@ -309,14 +309,20 @@ export default function MetasScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5f5f5" },
+
   card: {
     backgroundColor: "#fff",
     borderRadius: 12,
     padding: 16,
-    borderWidth: 0.5,
+    borderWidth: Platform.OS === "ios" ? 0.5 : 0,
     borderColor: "#e0e0e0",
-    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
   },
+
   sectionTitle: {
     fontSize: 13,
     fontWeight: "600",
@@ -325,7 +331,13 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     marginBottom: 12,
   },
-  label: { fontSize: 12, color: "#888", marginBottom: 6, fontWeight: "500" },
+  label: {
+    fontSize: 12,
+    color: "#888",
+    marginBottom: 6,
+    fontWeight: "500",
+    fontFamily: "Inter_500Medium",
+  },
   input: {
     borderWidth: 0.5,
     borderColor: "#ddd",
@@ -335,6 +347,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     color: "#1a1a1a",
     backgroundColor: "#fafafa",
+    fontFamily: "Inter_400Regular",
   },
   dateBtn: {
     flexDirection: "row",
