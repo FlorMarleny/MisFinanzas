@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { cargarTransacciones, guardarTransacciones } from "../../storage/data";
+import { Transaction } from "../../storage/types"; // 👈 cambia esto
 
 const CATS_GASTO = [
   "Comida",
@@ -37,15 +38,43 @@ export default function AgregarScreen() {
 
   const cats = esIngreso ? CATS_INGRESO : CATS_GASTO;
 
+  // const guardar = async () => {
+  //   if (!monto || isNaN(Number(monto)) || Number(monto) <= 0) {
+  //     Alert.alert("", "Ingresa un monto válido");
+  //     return;
+  //   }
+  //   const existentes = await cargarTransacciones();
+  //   const nueva = {
+  //     id: Date.now(),
+  //     type: (esIngreso ? "income" : "expense") as "income" | "expense",
+  //     amount: Number(monto),
+  //     category: categoria,
+
+  //     account: cuenta,
+  //     desc,
+  //     tags: tags
+  //       ? tags
+  //           .split(",")
+  //           .map((t) => t.trim())
+  //           .filter(Boolean)
+  //       : [],
+  //     date: fecha,
+  //   };
+  //   await guardarTransacciones([...existentes, nueva]);
+  //   setMonto("");
+  //   setDesc("");
+  //   setTags("");
+  //   Alert.alert("✅ Guardado", "Movimiento registrado correctamente");
+  // };
   const guardar = async () => {
     if (!monto || isNaN(Number(monto)) || Number(monto) <= 0) {
       Alert.alert("", "Ingresa un monto válido");
       return;
     }
-    const existentes = await cargarTransacciones();
-    const nueva = {
+    const existentes = (await cargarTransacciones()) ?? []; // 👈 fallback a []
+    const nueva: Transaction = {
       id: Date.now(),
-      type: esIngreso ? "income" : "expense",
+      type: (esIngreso ? "income" : "expense") as "income" | "expense",
       amount: Number(monto),
       category: categoria,
       account: cuenta,
@@ -64,7 +93,6 @@ export default function AgregarScreen() {
     setTags("");
     Alert.alert("✅ Guardado", "Movimiento registrado correctamente");
   };
-
   return (
     <ScrollView
       style={styles.container}

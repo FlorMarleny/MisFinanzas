@@ -1,11 +1,14 @@
 export type TransactionType = "income" | "expense";
 
 export interface Transaction {
+  id: number;
   type: TransactionType;
   category: string;
   desc: string;
   amount: number;
   date: string; // YYYY-MM-DD
+  account: string; // 👈
+  tags: string[]; // 👈
 }
 
 export interface Goal {
