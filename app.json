@@ -50,8 +50,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "b705b316-32eb-48a6-9dc5-2c37fea88ce0"
+        "projectId": "5e55ecf1-c2f6-4802-acb4-11d978102dbc"
       }
-    }
+    },
+    "owner": "flor.rodriguez"
   }
 }
